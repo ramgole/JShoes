@@ -151,4 +151,18 @@ public class JShoes {
 	public TextBlock inscription(String message) {
 		return new TextBlock(this, currentSlot.getComposite(), message).size(10);
 	}
+	
+	public void animate(final int fps, final CodeBlock block) {
+		shell.getDisplay().timerExec(1000/fps, new Runnable() {
+			@Override
+			public void run() {
+				block.run(JShoes.this);
+				shell.getDisplay().timerExec(1000/fps, this);
+			}
+		});
+	}
+	
+	public void animate(CodeBlock block) {
+		animate(10, block);
+	}
 }

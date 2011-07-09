@@ -31,11 +31,10 @@ public class JShoes {
 		 block.run(this);
 		 shell.pack();
 		 shell.open();
-		 while( !shell.isDisposed())
-		    {
-		      if(!display.readAndDispatch()) 
-		      display.sleep();
-		    }
+		 while( !shell.isDisposed()) {
+			 if(!display.readAndDispatch()) 
+				 display.sleep();
+		 }
 		 display.dispose();
 	}
 	
@@ -156,8 +155,10 @@ public class JShoes {
 		shell.getDisplay().timerExec(1000/fps, new Runnable() {
 			@Override
 			public void run() {
-				block.run(JShoes.this);
-				shell.getDisplay().timerExec(1000/fps, this);
+				if(!shell.isDisposed()) {
+					block.run(JShoes.this);
+					shell.getDisplay().timerExec(1000/fps, this);
+				}
 			}
 		});
 	}
